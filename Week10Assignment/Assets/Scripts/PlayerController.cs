@@ -6,8 +6,9 @@ public class PlayerController : MonoBehaviour
 {
     public Rigidbody2D rb;
 
-    public float walkSpeed = 5;
+    public float walkSpeed = 5f;
     float playerWalking;
+    public float groundedDistance = 0.8f;
 
     public enum FacingDirection
     {
@@ -34,7 +35,7 @@ public class PlayerController : MonoBehaviour
         Vector2 playerInput = new Vector2();
         MovementUpdate(playerInput);
         IsWalking();
-        Debug.Log(IsWalking());
+        //Debug.Log(IsWalking());
     }
 
     private void MovementUpdate(Vector2 playerInput)
@@ -45,13 +46,13 @@ public class PlayerController : MonoBehaviour
 
         if (walking > 0)
         {
-            Debug.Log("right");
+            //Debug.Log("right");
             rb.AddForce(new Vector2(walking * walkSpeed, 0), ForceMode2D.Force);
         }
 
         if (walking < 0)
         {
-            Debug.Log("left");
+            //Debug.Log("left");
             rb.AddForce(new Vector2(walking * walkSpeed, 0), ForceMode2D.Force);
         }
     }
@@ -69,7 +70,19 @@ public class PlayerController : MonoBehaviour
     }
     public bool IsGrounded()
     {
-        return false;
+        RaycastHit2D hitInfo = Physics2D.Raycast(transform.position, Vector2.down, groundedDistance);
+        Debug.DrawRay(transform.position, Vector2.down * groundedDistance, Color.yellow);
+        if (hitInfo.collider == null)
+        {
+            Debug.Log("not grounded");
+            return false;
+        }
+        else
+        {
+            Debug.Log("grounded");
+            return true;
+        }
+
     }
 
     public FacingDirection GetFacingDirection()
