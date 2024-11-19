@@ -1,3 +1,5 @@
+using JetBrains.Annotations;
+using System;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -5,11 +7,14 @@ public class PlayerController : MonoBehaviour
     public Rigidbody2D rb;
 
     public float walkSpeed = 5;
+    float playerWalking;
 
     public enum FacingDirection
     {
         left, right
     }
+
+    public float recentDirection = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -23,15 +28,20 @@ public class PlayerController : MonoBehaviour
         // The input from the player needs to be determined and
         // then passed in the to the MovementUpdate which should
         // manage the actual movement of the character.
+
+        playerWalking = Input.GetAxis("Horizontal");
+
         Vector2 playerInput = new Vector2();
         MovementUpdate(playerInput);
+        IsWalking();
+        Debug.Log(IsWalking());
     }
 
     private void MovementUpdate(Vector2 playerInput)
     {
         float walking = playerInput.x;
         walking = Input.GetAxis("Horizontal");
-        Debug.Log(walking);
+        //Debug.Log(walking);
 
         if (walking > 0)
         {
@@ -48,7 +58,14 @@ public class PlayerController : MonoBehaviour
 
     public bool IsWalking()
     {
-        return false;
+        if (playerWalking > 0 || playerWalking < 0)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
     public bool IsGrounded()
     {
@@ -57,6 +74,24 @@ public class PlayerController : MonoBehaviour
 
     public FacingDirection GetFacingDirection()
     {
-        return FacingDirection.left;
+        if (playerWalking > 0)
+        {
+            recentDirection = 1;
+            return FacingDirection.right;
+        }
+        if (playerWalking < 0)
+        {
+            recentDirection = 0;
+            return FacingDirection.left;
+        }
+        if ((playerWalking == 0) && (recentDirection == 1))
+        {
+            return FacingDirection.right;
+        }
+        if ((playerWalking == 0) && (recentDirection == 0))
+        {
+            return FacingDirection.left;
+        }
+        else return FacingDirection.left;
     }
 }
