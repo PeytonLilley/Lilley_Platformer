@@ -2,6 +2,10 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    public Rigidbody2D rb;
+
+    public float walkSpeed = 5;
+
     public enum FacingDirection
     {
         left, right
@@ -25,7 +29,21 @@ public class PlayerController : MonoBehaviour
 
     private void MovementUpdate(Vector2 playerInput)
     {
+        float walking = playerInput.x;
+        walking = Input.GetAxis("Horizontal");
+        Debug.Log(walking);
 
+        if (walking > 0)
+        {
+            Debug.Log("right");
+            rb.AddForce(new Vector2(walking * walkSpeed, 0), ForceMode2D.Force);
+        }
+
+        if (walking < 0)
+        {
+            Debug.Log("left");
+            rb.AddForce(new Vector2(walking * walkSpeed, 0), ForceMode2D.Force);
+        }
     }
 
     public bool IsWalking()
