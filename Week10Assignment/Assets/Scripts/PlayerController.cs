@@ -42,6 +42,10 @@ public class PlayerController : MonoBehaviour
 
     private void MovementUpdate(Vector2 playerInput)
     {
+        rb.gravityScale = 0;
+        rb.AddForce(new Vector2(0, (-3 * apexHeight / (apexTime * apexTime))));
+        
+
         float walking = playerInput.x;
         walking = Input.GetAxis("Horizontal");
         //Debug.Log(walking);
@@ -69,12 +73,17 @@ public class PlayerController : MonoBehaviour
         {
             Debug.Log("jumping");
             //rb.AddForce(new Vector2(0, jumping), ForceMode2D.Impulse);
-            //rb.gravityScale = 0;
-            //rb.gravityScale = (-2 * apexHeight / (apexTime * apexTime));
+
             //rb.velocity = new Vector2(0, (2 * apexHeight / apexTime));
 
-            rb.AddForce(new Vector2(0,jumpGravity * jumpVelocity), ForceMode2D.Impulse);
+            //rb.AddForce(new Vector2(0,jumpGravity * jumpVelocity), ForceMode2D.Impulse);
+
+            rb.AddForce(Vector2.up * jumpVelocity, ForceMode2D.Impulse);
+                //= (new Vector2(rb.velocity.x, (2 * apexHeight / apexTime)));
         }
+
+        
+        
     }
 
     public bool IsWalking()
