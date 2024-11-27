@@ -9,6 +9,8 @@ public class PlayerController : MonoBehaviour
     public float walkSpeed = 5f;
     float playerWalking;
     public float groundedDistance = 0.8f;
+    public float apexHeight = 3f;
+    public float apexTime = 1f;
 
     public enum FacingDirection
     {
@@ -54,6 +56,24 @@ public class PlayerController : MonoBehaviour
         {
             //Debug.Log("left");
             rb.AddForce(new Vector2(walking * walkSpeed, 0), ForceMode2D.Force);
+        }
+
+        float jumping = playerInput.y;
+        jumping = Input.GetAxis("Jump");
+        Debug.Log(jumping);
+
+        float jumpGravity = (-2 * apexHeight / (apexTime * apexTime));
+        float jumpVelocity = (2 * apexHeight / apexTime);
+
+        if ((jumping > 0) && (IsGrounded()))
+        {
+            Debug.Log("jumping");
+            //rb.AddForce(new Vector2(0, jumping), ForceMode2D.Impulse);
+            //rb.gravityScale = 0;
+            //rb.gravityScale = (-2 * apexHeight / (apexTime * apexTime));
+            //rb.velocity = new Vector2(0, (2 * apexHeight / apexTime));
+
+            rb.AddForce(new Vector2(0,jumpGravity * jumpVelocity), ForceMode2D.Impulse);
         }
     }
 
