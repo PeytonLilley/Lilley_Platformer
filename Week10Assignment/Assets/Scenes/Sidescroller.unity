@@ -1696,8 +1696,9 @@ MonoBehaviour:
   rb: {fileID: 1433354317}
   walkSpeed: 10
   groundedDistance: 0.8
-  apexHeight: 3
+  apexHeight: 2.3
   apexTime: 1
+  terminalVelocity: -3
   recentDirection: 0
 --- !u!4 &1433354315
 Transform:

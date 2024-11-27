@@ -12,6 +12,8 @@ public class PlayerController : MonoBehaviour
     public float apexHeight = 3f;
     public float apexTime = 1f;
 
+    public float terminalVelocity = -3f;
+
     public enum FacingDirection
     {
         left, right
@@ -43,7 +45,7 @@ public class PlayerController : MonoBehaviour
     private void MovementUpdate(Vector2 playerInput)
     {
         rb.gravityScale = 0;
-        rb.AddForce(new Vector2(0, (-3 * apexHeight / (apexTime * apexTime))));
+        rb.AddForce(new Vector2(0, (-2 * apexHeight / (apexTime * apexTime))));
         
 
         float walking = playerInput.x;
@@ -72,17 +74,13 @@ public class PlayerController : MonoBehaviour
         if ((jumping > 0) && (IsGrounded()))
         {
             Debug.Log("jumping");
-            //rb.AddForce(new Vector2(0, jumping), ForceMode2D.Impulse);
-
-            //rb.velocity = new Vector2(0, (2 * apexHeight / apexTime));
-
-            //rb.AddForce(new Vector2(0,jumpGravity * jumpVelocity), ForceMode2D.Impulse);
-
             rb.AddForce(Vector2.up * jumpVelocity, ForceMode2D.Impulse);
-                //= (new Vector2(rb.velocity.x, (2 * apexHeight / apexTime)));
         }
 
-        
+        if (rb.velocity.y <= terminalVelocity)
+        {
+            rb.velocity = new Vector2(0, terminalVelocity);
+        }
         
     }
 
