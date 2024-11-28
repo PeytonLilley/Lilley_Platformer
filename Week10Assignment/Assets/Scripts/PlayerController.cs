@@ -14,6 +14,9 @@ public class PlayerController : MonoBehaviour
 
     public float terminalVelocity = -3f;
 
+    public float coyoteTime = 1f;
+    public float coyoteTimer = 0f;
+
     public enum FacingDirection
     {
         left, right
@@ -71,7 +74,7 @@ public class PlayerController : MonoBehaviour
         float jumpGravity = (-2 * apexHeight / (apexTime * apexTime));
         float jumpVelocity = (2 * apexHeight / apexTime);
 
-        if ((jumping > 0) && (IsGrounded()))
+        if (((jumping > 0) && ((IsGrounded()) || (!IsGrounded()) && coyoteTimer < coyoteTime)))
         {
             Debug.Log("jumping");
             rb.AddForce(Vector2.up * jumpVelocity, ForceMode2D.Impulse);
@@ -81,7 +84,11 @@ public class PlayerController : MonoBehaviour
         {
             rb.velocity = new Vector2(0, terminalVelocity);
         }
-        
+
+        if (!IsGrounded())
+        {
+            coyoteTimer = coyoteTimer += Time.deltaTime;
+        }
     }
 
     public bool IsWalking()
@@ -107,6 +114,7 @@ public class PlayerController : MonoBehaviour
         else
         {
             Debug.Log("grounded");
+            coyoteTimer = 0;
             return true;
         }
 
