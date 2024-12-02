@@ -42,6 +42,10 @@ public class PlayerController : MonoBehaviour
 
     private Vector2 velocity;
 
+    public float dashForce = 50;
+    public float dashLength = 0.5f;
+    public float dashTimer = 0f;
+
     public void Start()
     {
         body.gravityScale = 0;
@@ -98,6 +102,8 @@ public class PlayerController : MonoBehaviour
             velocity.y = 0;
 
         body.velocity = velocity;
+
+        Dash();
     }
 
     private void MovementUpdate(Vector2 playerInput)
@@ -124,6 +130,34 @@ public class PlayerController : MonoBehaviour
                 velocity.x += decelerationRate * Time.deltaTime;
                 velocity.x = Mathf.Min(velocity.x, 0);
             }
+        }
+    }
+
+    private void Dash()  // dash mechanic
+    {
+        
+
+        Debug.Log(dashTimer);
+
+        if (Input.GetKey(KeyCode.Z) && currentDirection == PlayerDirection.left && dashTimer < dashLength)  // if the player is facing left and z is pressed, dash left
+        {
+            dashTimer += Time.deltaTime;
+            body.AddForce(Vector2.left * dashForce, ForceMode2D.Impulse);
+        }
+        
+        if (Input.GetKey(KeyCode.Z) && currentDirection == PlayerDirection.right && dashTimer < dashLength)  // otherwise, if they are facing right and press z, dash right
+        {
+            dashTimer += Time.deltaTime;
+            body.AddForce(Vector2.right * dashForce, ForceMode2D.Impulse);
+        }
+
+        if (dashTimer > dashLength)
+        {
+            velocity = Vector2.zero;
+        }
+        if (Input.GetKeyUp(KeyCode.Z))
+        {
+            dashTimer = 0;
         }
     }
 

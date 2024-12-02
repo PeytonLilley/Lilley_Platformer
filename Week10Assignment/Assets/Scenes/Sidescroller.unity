@@ -1743,6 +1743,9 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8
   isDead: 0
+  dashForce: 20
+  dashLength: 0.2
+  dashTimer: 0
 --- !u!4 &1433354315
 Transform:
   m_ObjectHideFlags: 0
@@ -1784,7 +1787,7 @@ Rigidbody2D:
     m_Bits: 0
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 4
 --- !u!61 &1433354317
 BoxCollider2D:
