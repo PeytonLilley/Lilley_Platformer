@@ -214,6 +214,21 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    public void OnCollisionEnter2D(Collision2D collision)
+    {
+         if (collision.gameObject.tag == "Bouncy")
+        {
+            Debug.Log("bounce");
+            body.AddForce(Vector2.up * 1000, ForceMode2D.Impulse);
+        }
+         if (collision.gameObject.tag == "Slide")
+        {
+            Debug.Log("slide");
+            //body.AddForce(Vector2.left * 1000, ForceMode2D.Impulse);
+            velocity.x = velocity.x * 50;
+        }
+    }
+
     private void CheckForGround()
     {
         isGrounded = Physics2D.OverlapBox(
