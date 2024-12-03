@@ -28,7 +28,7 @@ public class PlayerController : MonoBehaviour
 
     [Header("Ground Checking")]
     public float groundCheckOffset = 0.5f;
-    public Vector2 groundCheckSize = new(0.4f, 0.1f);
+    public Vector2 groundCheckSize = new(0.3f, 0.1f);
     public LayerMask groundCheckMask;
 
     private float accelerationRate;
@@ -45,6 +45,9 @@ public class PlayerController : MonoBehaviour
     public float dashForce = 50;
     public float dashLength = 0.5f;
     public float dashTimer = 0f;
+
+    public float wallDistance = 0.5f;
+    public float climbSpeed = 5f;
 
     public void Start()
     {
@@ -104,6 +107,8 @@ public class PlayerController : MonoBehaviour
         body.velocity = velocity;
 
         Dash();
+        TouchWall();
+        WallClimb();
     }
 
     private void MovementUpdate(Vector2 playerInput)
@@ -158,6 +163,45 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyUp(KeyCode.Z))
         {
             dashTimer = 0;
+        }
+    }
+
+    public bool TouchWall()  // raycasts for the player's proximity to the wall
+    {
+        RaycastHit2D hitLeft = Physics2D.Raycast(transform.position, Vector2.left, wallDistance);
+        Debug.DrawRay(transform.position, Vector2.left * wallDistance, Color.red);
+
+        RaycastHit2D hitRight = Physics2D.Raycast(transform.position, Vector2.right, wallDistance);
+        Debug.DrawRay(transform.position, Vector2.right * wallDistance, Color.red);
+
+        if (hitLeft.collider == null && hitRight.collider != null)
+        {
+            Debug.Log("touching wall");
+            return true;
+        }
+        else if (hitRight.collider == null && hitLeft.collider != null)
+        {
+            Debug.Log("touching wall");
+            return true; ;
+        }
+        else
+        {
+            Debug.Log("not touching wall");
+            return false;
+        }
+    }
+
+    private void WallClimb()
+    {
+        if (Input.GetKey(KeyCode.C) && TouchWall())
+        {
+            gravity = 0;
+            velocity.x = 0;
+            body.AddForce(Vector2.up * climbSpeed, ForceMode2D.Force);
+        }
+        if (Input.GetKeyUp(KeyCode.C))
+        {
+            gravity = -2 * apexHeight / (apexTime * apexTime);
         }
     }
 

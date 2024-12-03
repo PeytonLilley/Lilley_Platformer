@@ -246,7 +246,7 @@ GameObject:
   - component: {fileID: 874392358}
   - component: {fileID: 874392360}
   - component: {fileID: 874392359}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1710,7 +1710,7 @@ GameObject:
   - component: {fileID: 1433354314}
   - component: {fileID: 1433354317}
   - component: {fileID: 1433354316}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1738,7 +1738,7 @@ MonoBehaviour:
   apexHeight: 4
   apexTime: 0.5
   groundCheckOffset: 0.595
-  groundCheckSize: {x: 0.6, y: 0.1}
+  groundCheckSize: {x: 0.5, y: 0.1}
   groundCheckMask:
     serializedVersion: 2
     m_Bits: 8
@@ -1746,6 +1746,8 @@ MonoBehaviour:
   dashForce: 20
   dashLength: 0.2
   dashTimer: 0
+  wallDistance: 0.5
+  climbSpeed: 5
 --- !u!4 &1433354315
 Transform:
   m_ObjectHideFlags: 0
@@ -1844,7 +1846,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1598075210}
   - component: {fileID: 1598075211}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Visuals
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4413,21 +4415,21 @@ Tilemap:
   m_TileMatrixArray:
   - m_RefCount: 0
     m_Data:
-      e00: NaN
+      e00: -7.880699e-17
       e01: NaN
-      e02: 2.412231e-28
+      e02: -6.259746e+34
       e03: 0
-      e10: 3.01e-43
+      e10: 1.84e-43
       e11: NaN
       e12: 4.5905e-41
       e13: 0
-      e20: NaN
+      e20: 3.7956e-41
       e21: 0
-      e22: NaN
+      e22: -7.8806887e-17
       e23: 0
       e30: 0
       e31: 7.34684e-40
-      e32: 3.01e-43
+      e32: 1.84e-43
       e33: 1
   - m_RefCount: 243
     m_Data:
