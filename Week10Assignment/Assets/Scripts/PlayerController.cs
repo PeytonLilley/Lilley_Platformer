@@ -156,11 +156,11 @@ public class PlayerController : MonoBehaviour
             body.AddForce(Vector2.right * dashForce, ForceMode2D.Impulse);
         }
 
-        if (dashTimer > dashLength)
+        if (dashTimer > dashLength)  // if the dash timer runs out, stop the player's movement
         {
             velocity = Vector2.zero;
         }
-        if (Input.GetKeyUp(KeyCode.Z))
+        if (Input.GetKeyUp(KeyCode.Z))  // reset the dash timer when the player stops pressing the dash button
         {
             dashTimer = 0;
         }
@@ -174,32 +174,32 @@ public class PlayerController : MonoBehaviour
         RaycastHit2D hitRight = Physics2D.Raycast(transform.position, Vector2.right, wallDistance);
         Debug.DrawRay(transform.position, Vector2.right * wallDistance, Color.red);
 
-        if (hitLeft.collider == null && hitRight.collider != null)
+        if (hitLeft.collider == null && hitRight.collider != null)  // returns true if the right side of the player is touching the wall
         {
             Debug.Log("touching wall");
             return true;
         }
-        else if (hitRight.collider == null && hitLeft.collider != null)
+        else if (hitRight.collider == null && hitLeft.collider != null)  // returns true if the left side of the player is touching the wall
         {
             Debug.Log("touching wall");
             return true; ;
         }
-        else
+        else  // returns false if the player is not touching the wall on either side
         {
             Debug.Log("not touching wall");
             return false;
         }
     }
 
-    private void WallClimb()
+    private void WallClimb()  // wall climb mechanic
     {
-        if (Input.GetKey(KeyCode.C) && TouchWall())
+        if (Input.GetKey(KeyCode.C) && TouchWall())  // adds upward force if the player is touching the wall and presses the climb button
         {
-            gravity = 0;
+            gravity = 0;  // stops gravity while the player is climbing so the two forces aren't pushing against each other
             velocity.x = 0;
             body.AddForce(Vector2.up * climbSpeed, ForceMode2D.Force);
         }
-        if (Input.GetKeyUp(KeyCode.C))
+        if (Input.GetKeyUp(KeyCode.C))  // adds gravity back in when the player stops pressing the climb button
         {
             gravity = -2 * apexHeight / (apexTime * apexTime);
         }
@@ -214,14 +214,14 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public void OnCollisionEnter2D(Collision2D collision)
+    public void OnCollisionEnter2D(Collision2D collision)  // bounce and slide mechanics
     {
-         if (collision.gameObject.tag == "Bouncy")
+         if (collision.gameObject.tag == "Bouncy")  // detects if the player is on the bounce tile 
         {
             Debug.Log("bounce");
             //body.AddForce(Vector2.up * 0, ForceMode2D.Impulse);
         }
-         if (collision.gameObject.tag == "Slide")
+         if (collision.gameObject.tag == "Slide")  // detects if the player is on the slide tile
         {
             Debug.Log("slide");
             body.AddForce(Vector2.left * 1000, ForceMode2D.Impulse);
