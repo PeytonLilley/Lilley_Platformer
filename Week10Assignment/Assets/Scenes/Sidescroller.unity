@@ -157,7 +157,7 @@ Rigidbody2D:
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 1
-  m_Material: {fileID: 6200000, guid: fb414e41d20b01745a34163b0671841a, type: 2}
+  m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -274,7 +274,7 @@ Transform:
   m_GameObject: {fileID: 129275542}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 6.38, y: -2.91, z: 0}
+  m_LocalPosition: {x: 6.38, y: -3.05, z: 0}
   m_LocalScale: {x: 2.6416407, y: 0.1125, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2070,7 +2070,7 @@ BoxCollider2D:
   m_GameObject: {fileID: 2015592962}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 6200000, guid: 33d0e884635a06d4094ecaf2c1d6437b, type: 2}
+  m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -2122,7 +2122,7 @@ Rigidbody2D:
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 33d0e884635a06d4094ecaf2c1d6437b, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0

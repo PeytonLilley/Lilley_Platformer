@@ -219,13 +219,13 @@ public class PlayerController : MonoBehaviour
          if (collision.gameObject.tag == "Bouncy")
         {
             Debug.Log("bounce");
-            body.AddForce(Vector2.up * 1000, ForceMode2D.Impulse);
+            //body.AddForce(Vector2.up * 0, ForceMode2D.Impulse);
         }
          if (collision.gameObject.tag == "Slide")
         {
             Debug.Log("slide");
-            //body.AddForce(Vector2.left * 1000, ForceMode2D.Impulse);
-            velocity.x = velocity.x * 50;
+            body.AddForce(Vector2.left * 1000, ForceMode2D.Impulse);
+            //velocity.x = velocity.x * 50;
         }
     }
 
